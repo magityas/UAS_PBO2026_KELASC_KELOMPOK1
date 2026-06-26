@@ -96,6 +96,22 @@ class ButterCookies(KueKering):
             p.jalankan()
 
 
+class Muffin(KueKering):
+    def __init__(self, nama, kode, bahan, biaya, harga):
+        super().__init__(nama, kode, bahan, biaya, harga)
+        self.proses = [
+            Pengadonan(),
+            Pengembangan(),
+            Pemanggangan(),
+            Topping()
+        ]
+
+    def proses_produksi(self):
+        print(f"\n=== Produksi {self.nama} ===")
+        for p in self.proses:
+            p.jalankan()
+
+
 class ButterCookiesOriginal(ButterCookies):
     pass
 
@@ -104,6 +120,17 @@ class ButterCookiesCoklat(ButterCookies):
 
 class ButterCookiesKeju(ButterCookies):
     pass
+
+
+class MuffinCoklat(Muffin):
+    pass
+
+class MuffinBlueberry(Muffin):
+    pass
+
+class MuffinKeju(Muffin):
+    pass
+
 
 class PabrikRoti:
     @staticmethod
@@ -114,5 +141,11 @@ class PabrikRoti:
             return ButterCookiesCoklat(nama, kode, bahan, biaya, harga)
         elif jenis == "cookies_keju":
             return ButterCookiesKeju(nama, kode, bahan, biaya, harga)
+        elif jenis == "muffin_coklat":
+            return MuffinCoklat(nama, kode, bahan, biaya, harga)
+        elif jenis == "muffin_blueberry":
+            return MuffinBlueberry(nama, kode, bahan, biaya, harga)
+        elif jenis == "muffin_keju":
+            return MuffinKeju(nama, kode, bahan, biaya, harga)
         else:
             raise ValueError(f"Varian '{jenis}' tidak tersedia")
