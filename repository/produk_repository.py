@@ -2,19 +2,36 @@ from models.Croissant import Croissant, PabrikRoti as PabrikCroissant
 from models.KueKering import ButterCookies, Muffin, PabrikRoti as PabrikKueKering
 from models.Roti_manis import Rotimanis, PabrikRoti as PabrikRotiManis
 
-class ProdukRepository:
+#Croissant
+class CroissantRepository:
     def __init__(self):
-        self.daftar_produk = []
+        self.daftar_croissant = []
 
-    def tambah_produk(self, produk):
-        self.daftar_produk.append(produk)
-        print(f"Produk '{produk.nama}' berhasil ditambahkan.")
+    def tambah(self, jenis, nama, kode, bahan, biaya, harga):
+        produk = PabrikCroissant.buat_varian(jenis, nama, kode, bahan, biaya, harga)
+        self.daftar_croissant.append(produk)
+        print(f"Produk croissant '{nama}' berhasil ditambahkan.")
 
     def tampilkan_semua(self):
-        if len(self.daftar_produk) == 0:
-            print("Belum ada produk yang tersimpan.")
+        if len(self.daftar_croissant) == 0:
+            print("Belum ada produk croissant.")
             return
 
-        print("\n=== Daftar Semua Produk ===")
-        for i, produk in enumerate(self.daftar_produk):
+        print("\n=== Daftar Croissant ===")
+        for i, produk in enumerate(self.daftar_croissant):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
+
+    def cari_by_kode(self, kode):
+        for produk in self.daftar_croissant:
+            if produk.kode == kode:
+                return produk
+        return None
+
+    def hapus(self, kode):
+        produk = self.cari_by_kode(kode)
+        if produk != None:
+            self.daftar_croissant.remove(produk)
+            print(f"Produk '{produk.nama}' berhasil dihapus.")
+        else:
+            print(f"Produk dengan kode '{kode}' tidak ditemukan.")
+
