@@ -84,7 +84,7 @@ class KueKeringRepository:
             print(f"Tidak ada produk dengan jenis '{jenis}'.")
             return
 
-        print(f"\n=== Produk Jenis {jenis.capitalize()} ===")
+        print("\n=== Produk Jenis Kue Kering ===")
         for i, produk in enumerate(hasil):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
