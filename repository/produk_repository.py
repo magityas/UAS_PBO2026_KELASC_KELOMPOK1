@@ -16,7 +16,6 @@ class CroissantRepository:
         if len(self.daftar_croissant) == 0:
             print("Belum ada produk croissant.")
             return
-
         print("\n=== Daftar Croissant ===")
         for i, produk in enumerate(self.daftar_croissant):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
@@ -26,6 +25,20 @@ class CroissantRepository:
             if produk.kode == kode:
                 return produk
         return None
+
+    def cari_jenis(self):
+        hasil = []
+        for produk in self.daftar_croissant:
+            if isinstance(produk, Croissant):
+                hasil.append(produk)
+
+        if len(hasil) == 0:
+            print("Tidak ada produk croissant.")
+            return
+
+        print("\n=== Produk Jenis Croissant ===")
+        for i, produk in enumerate(hasil):
+            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
     def hapus(self, kode):
         produk = self.cari_by_kode(kode)
@@ -49,7 +62,6 @@ class KueKeringRepository:
         if len(self.daftar_kuekering) == 0:
             print("Belum ada produk kue kering.")
             return
-
         print("\n=== Daftar Kue Kering ===")
         for i, produk in enumerate(self.daftar_kuekering):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
@@ -59,6 +71,22 @@ class KueKeringRepository:
             if produk.kode == kode:
                 return produk
         return None
+
+    def cari_jenis(self, jenis):
+        hasil = []
+        for produk in self.daftar_kuekering:
+            if jenis == "butter" and isinstance(produk, ButterCookies):
+                hasil.append(produk)
+            elif jenis == "muffin" and isinstance(produk, Muffin):
+                hasil.append(produk)
+
+        if len(hasil) == 0:
+            print(f"Tidak ada produk dengan jenis '{jenis}'.")
+            return
+
+        print(f"\n=== Produk Jenis {jenis.capitalize()} ===")
+        for i, produk in enumerate(hasil):
+            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
     def hapus(self, kode):
         produk = self.cari_by_kode(kode)
@@ -82,7 +110,6 @@ class RotiManisRepository:
         if len(self.daftar_rotimanis) == 0:
             print("Belum ada produk roti manis.")
             return
-
         print("\n=== Daftar Roti Manis ===")
         for i, produk in enumerate(self.daftar_rotimanis):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
@@ -92,6 +119,20 @@ class RotiManisRepository:
             if produk.kode == kode:
                 return produk
         return None
+
+    def cari_jenis(self):
+        hasil = []
+        for produk in self.daftar_rotimanis:
+            if isinstance(produk, Rotimanis):
+                hasil.append(produk)
+
+        if len(hasil) == 0:
+            print("Tidak ada produk roti manis.")
+            return
+
+        print("\n=== Produk Jenis Roti Manis ===")
+        for i, produk in enumerate(hasil):
+            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
     def hapus(self, kode):
         produk = self.cari_by_kode(kode)
