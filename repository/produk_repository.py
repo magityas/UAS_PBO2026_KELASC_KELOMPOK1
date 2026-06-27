@@ -67,3 +67,36 @@ class KueKeringRepository:
             print(f"Produk '{produk.nama}' berhasil dihapus.")
         else:
             print(f"Produk dengan kode '{kode}' tidak ditemukan.")
+
+#Roti Manis
+class RotiManisRepository:
+    def __init__(self):
+        self.daftar_rotimanis = []
+
+    def tambah(self, jenis, nama, kode, bahan, biaya, harga):
+        produk = PabrikRotiManis.buat_varian(jenis, nama, kode, bahan, biaya, harga)
+        self.daftar_rotimanis.append(produk)
+        print(f"Produk roti manis '{nama}' berhasil ditambahkan.")
+
+    def tampilkan_semua(self):
+        if len(self.daftar_rotimanis) == 0:
+            print("Belum ada produk roti manis.")
+            return
+
+        print("\n=== Daftar Roti Manis ===")
+        for i, produk in enumerate(self.daftar_rotimanis):
+            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
+
+    def cari_by_kode(self, kode):
+        for produk in self.daftar_rotimanis:
+            if produk.kode == kode:
+                return produk
+        return None
+
+    def hapus(self, kode):
+        produk = self.cari_by_kode(kode)
+        if produk != None:
+            self.daftar_rotimanis.remove(produk)
+            print(f"Produk '{produk.nama}' berhasil dihapus.")
+        else:
+            print(f"Produk dengan kode '{kode}' tidak ditemukan.")
