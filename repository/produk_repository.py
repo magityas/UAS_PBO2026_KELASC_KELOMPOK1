@@ -20,11 +20,11 @@ class CroissantRepository:
         for i, produk in enumerate(self.daftar_croissant):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
-    def cari_by_kode(self, kode):
+    def cari_kode(self, kode):
         for produk in self.daftar_croissant:
             if produk.kode == kode:
                 return produk
-        return None
+        return
 
     def cari_jenis(self):
         hasil = []
@@ -41,7 +41,7 @@ class CroissantRepository:
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
     def hapus(self, kode):
-        produk = self.cari_by_kode(kode)
+        produk = self.cari_kode(kode)
         if produk != None:
             self.daftar_croissant.remove(produk)
             print(f"Produk '{produk.nama}' berhasil dihapus.")
@@ -66,11 +66,11 @@ class KueKeringRepository:
         for i, produk in enumerate(self.daftar_kuekering):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
-    def cari_by_kode(self, kode):
+    def cari_kode(self, kode):
         for produk in self.daftar_kuekering:
             if produk.kode == kode:
                 return produk
-        return None
+        return
 
     def cari_jenis(self, jenis):
         hasil = []
@@ -89,7 +89,7 @@ class KueKeringRepository:
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
     def hapus(self, kode):
-        produk = self.cari_by_kode(kode)
+        produk = self.cari_kode(kode)
         if produk != None:
             self.daftar_kuekering.remove(produk)
             print(f"Produk '{produk.nama}' berhasil dihapus.")
@@ -114,11 +114,11 @@ class RotiManisRepository:
         for i, produk in enumerate(self.daftar_rotimanis):
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
-    def cari_by_kode(self, kode):
+    def cari_kode(self, kode):
         for produk in self.daftar_rotimanis:
             if produk.kode == kode:
                 return produk
-        return None
+        return
 
     def cari_jenis(self):
         hasil = []
@@ -135,7 +135,7 @@ class RotiManisRepository:
             print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
 
     def hapus(self, kode):
-        produk = self.cari_by_kode(kode)
+        produk = self.cari_kode(kode)
         if produk != None:
             self.daftar_rotimanis.remove(produk)
             print(f"Produk '{produk.nama}' berhasil dihapus.")
