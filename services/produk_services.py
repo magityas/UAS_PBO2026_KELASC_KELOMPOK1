@@ -12,9 +12,9 @@ class ProdukService:
         self.repository = repository or (ProdukRepository() if ProdukRepository else None)
     
     def tambah_produk(self, produk: Any) -> bool:
-        if self.cari_produk(produk.code) is not None:
+        if self.cari_produk_by_kode(produk.kode) is not None:
             return False
-        self.repository.tambah_produk(produk)
+        self.repository.tambah(produk)
         return True
     
     def ambil_semua_produk(self) -> List[Any]:
