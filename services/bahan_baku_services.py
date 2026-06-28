@@ -5,7 +5,7 @@ class BahanBakuService:
         if jumlah_pcs <= 0:
             raise ValueError("Jumlah pcs harus lebih dari 0.")
         
-        jumlah_pcs_resep = getattr(produk, "Jumlah_pcs_resep", 1)
+        jumlah_pcs_resep = getattr(produk, "jumlah_pcs_resep", 1)
         return jumlah_pcs / jumlah_pcs_resep
     
     def hitung_kebutuhan_bahan(self, produk: Any, jumlah_pcs: int) -> List[Dict[str, float]]:
