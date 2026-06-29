@@ -7,7 +7,7 @@ class CroissantRepository:
     def __init__(self):
         self.daftar_croissant = []
 
-    def tambah(self, jenis, nama, kode, bahan, biaya, harga):
+    def tambah_produk(self, jenis, nama, kode, bahan, biaya, harga):
         produk = PabrikCroissant.buat_varian(jenis, nama, kode, bahan, biaya, harga)
         self.daftar_croissant.append(produk)
         print(f"Produk croissant '{nama}' berhasil ditambahkan.")
@@ -53,7 +53,7 @@ class KueKeringRepository:
     def __init__(self):
         self.daftar_kuekering = []
 
-    def tambah(self, jenis, nama, kode, bahan, biaya, harga):
+    def tambah_produk(self, jenis, nama, kode, bahan, biaya, harga):
         produk = PabrikKueKering.buat_varian(jenis, nama, kode, bahan, biaya, harga)
         self.daftar_kuekering.append(produk)
         print(f"Produk kue kering '{nama}' berhasil ditambahkan.")
@@ -101,7 +101,7 @@ class RotiManisRepository:
     def __init__(self):
         self.daftar_rotimanis = []
 
-    def tambah(self, jenis, nama, kode, bahan, biaya, harga):
+    def tambah_produk(self, jenis, nama, kode, bahan, biaya, harga):
         produk = PabrikRotiManis.buat_varian(jenis, nama, kode, bahan, biaya, harga)
         self.daftar_rotimanis.append(produk)
         print(f"Produk roti manis '{nama}' berhasil ditambahkan.")
