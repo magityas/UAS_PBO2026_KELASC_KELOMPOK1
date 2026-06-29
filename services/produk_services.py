@@ -41,3 +41,16 @@ class ProdukService:
         
         produk = self.repo_rotimanis.cari_kode(kode)
         return produk
+    
+    def hapus_produk_by_kode(self, kode: str) -> bool:
+        if self.repo_croissant.cari_kode(kode) is not None:
+            self.repo_croissant.hapus(kode)
+            return True
+        if self.repo_kuekering.cari_kode(kode) is not None:
+            self.repo_kuekering.hapus(kode)
+            return True
+        if self.repo_rotimanis.cari_kode(kode) is not None:
+            self.repo_rotimanis.hapus(kode)
+            return True
+        print(f"Produk dengan kode {kode} tidak ditemukan di kategori manapun.")
+        return False
