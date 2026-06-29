@@ -79,23 +79,30 @@ class Croissant(ProduksiRoti):
         for p in self.proses:
             p.jalankan()
             
-class Butter(Croissant):
-    pass
-
-class Almond(Croissant):
-    pass
-
-class Coklat(Croissant):
-    pass
-
 class PabrikRoti:
     @staticmethod
-    def buat_varian(jenis, nama, kode, bahan, biaya, harga):
-        if jenis == "butter":
-            return Butter(nama, kode, bahan, biaya, harga)
-        elif jenis == "almond":
-            return Almond(nama, kode, bahan, biaya, harga)
-        elif jenis == "coklat":
-            return Coklat(nama, kode, bahan, biaya, harga)
-        else:
-            raise ValueError("Varian tidak tersedia")
+    def buat_varian(nama, kode, bahan, biaya, harga):
+       return Croissant(nama, kode, bahan, biaya, harga)
+   
+nama = input("Masukan nama varian: ")
+kode = input("Masukan kode produk: ")
+
+jumlah_bahan = int(input("Jumlah bahan: "))
+bahan = []
+
+for i in range(jumlah_bahan):
+    print(f"\nBahan ke-{i+1}")
+    nama_bahan = input("Nama bahan: ")
+    jumlah = input("Jumlah: ")
+    bahan.append(BahanBaku(nama_bahan, jumlah))
+    
+biaya = int(input("Biaya produksi: "))
+harga = int(input("Harga jual: "))
+
+produk = PabrikRoti.buat_varian(
+    nama,
+    kode,
+    bahan,
+    biaya,
+    harga
+)
