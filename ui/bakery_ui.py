@@ -107,7 +107,7 @@ class BakeryUI:
         konfirmasi = input(f"Apakah Anda yakin ingin menghapus produk '{produk.nama}'? (y/n): ")
 
         if konfirmasi.lower() == "y":
-            berhasil = self.produk_service.hapus_produk(kode)
+            berhasil = self.produk_service.hapus_produk_by_kode(kode)
             if berhasil:
                 print("Produk berhasil dihapus.")
             else:
@@ -156,9 +156,5 @@ class BakeryUI:
         self.produksi_service.simulasikan_produksi(produk)
 
     def run(self):
-        while True:
-            lanjut = self.tampilkan_menu()
-
-            if lanjut == False:
-                break
-    
+        while self.tampilkan_menu():
+            pass
