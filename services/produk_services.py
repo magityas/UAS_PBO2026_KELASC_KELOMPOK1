@@ -14,11 +14,11 @@ class ProdukService:
         
         kategori = kategori.lower()
         if kategori == "croissant":
-            return self.repo_croissant.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
+            self.repo_croissant.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
         elif kategori == "kue kering":
-            return self.repo_kuekering.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
+            self.repo_kuekering.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
         elif kategori == "roti_manis":
-            return self.repo_rotimanis.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
+            self.repo_rotimanis.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
         else:
             print("Gagal: Kategori tidak valid. Pilih 'croissant', kue_kering', atau 'roti_manis'.")
             return False
@@ -27,9 +27,9 @@ class ProdukService:
     
     def ambil_semua_produk(self) -> List[Any]:
         semua_produk = []
-        semua_produk.extend(self.repo_croissant.daftar_croissant())
-        semua_produk.extend(self.repo_kuekering.daftar_kuekering())
-        semua_produk.extend(self.repo_rotimanis.daftar_rotimanis())
+        semua_produk.extend(self.repo_croissant.daftar_croissant)
+        semua_produk.extend(self.repo_kuekering.daftar_kuekering)
+        semua_produk.extend(self.repo_rotimanis.daftar_rotimanis)
         return semua_produk
     
     def cari_produk_by_kode(self, kode: str) -> Optional[Any]:
