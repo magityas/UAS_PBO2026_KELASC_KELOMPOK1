@@ -43,6 +43,19 @@ class ProdukService:
         return produk
     
     def hapus_produk_by_kode(self, kode: str) -> bool:
+        print ("\n==========================================")
+        print("       DAFTAR SEMUA PRODUK SAAT INI       ")
+        print("==========================================")
+        # tampilkan semua produk sebelum proses pencarian dan penghapusan
+        self.repo_croissant.tampilkan_semua()
+        self.repo_kuekering.tampilkan_semua()
+        self.repo_rotimanis.tampilkan_semua()
+        print("==========================================\n")
+
+        # minta user mengetik kode yang ingin dihapus
+        kode = input("Masukkan kode produk yang ingin dihapus: ")
+
+        #proses pencarian dan penghapusan setelah data ditampilkan
         if self.repo_croissant.cari_kode(kode) is not None:
             self.repo_croissant.hapus(kode)
             return True
@@ -52,5 +65,6 @@ class ProdukService:
         if self.repo_rotimanis.cari_kode(kode) is not None:
             self.repo_rotimanis.hapus(kode)
             return True
+        
         print(f"Produk dengan kode {kode} tidak ditemukan di kategori manapun.")
         return False
