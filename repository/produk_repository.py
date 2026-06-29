@@ -2,127 +2,76 @@ from models.Croissant import Croissant, PabrikRoti as PabrikCroissant
 from models.KueKering import ButterCookies, Muffin, PabrikRoti as PabrikKueKering
 from models.Roti_manis import Rotimanis, PabrikRoti as PabrikRotiManis
 
-#Croissant
+_instance_croissant = []
+_instance_kuekering = []
+_instance_rotimanis = []
+
 class CroissantRepository:
     def __init__(self):
-        self.daftar_croissant = []
+        self.daftar_croissant = _instance_croissant
 
     def tambah_produk(self, jenis, nama, kode, bahan, biaya, harga):
-        produk = PabrikCroissant.buat_varian(jenis, nama, kode, bahan, biaya, harga)
+        produk = PabrikCroissant.buat_varian(nama, kode, bahan, biaya, harga)
         self.daftar_croissant.append(produk)
-        print(f"Produk croissant '{nama}' berhasil ditambahkan.")
+        print(f"Produk croissant '{nama}' berhasil disimpan di repo.")
 
     def tampilkan_semua(self):
         return self.daftar_croissant
 
     def cari_kode(self, kode):
         for produk in self.daftar_croissant:
-            if produk.kode == kode:
+            if str(produk.kode) == str(kode):
                 return produk
         return None
 
-    def cari_jenis(self):
-        hasil = []
-        for produk in self.daftar_croissant:
-            if isinstance(produk, Croissant):
-                hasil.append(produk)
-
-        if len(hasil) == 0:
-            print("Tidak ada produk croissant.")
-            return
-
-        print("\n=== Produk Jenis Croissant ===")
-        for i, produk in enumerate(hasil):
-            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
-
     def hapus(self, kode):
         produk = self.cari_kode(kode)
-        if produk != None:
+        if produk is not None:
             self.daftar_croissant.remove(produk)
             print(f"Produk '{produk.nama}' berhasil dihapus.")
-        else:
-            print(f"Produk dengan kode '{kode}' tidak ditemukan.")
 
-#Kue Kering
 class KueKeringRepository:
     def __init__(self):
-        self.daftar_kuekering = []
+        self.daftar_kuekering = _instance_kuekering
 
     def tambah_produk(self, jenis, nama, kode, bahan, biaya, harga):
         produk = PabrikKueKering.buat_varian(jenis, nama, kode, bahan, biaya, harga)
         self.daftar_kuekering.append(produk)
-        print(f"Produk kue kering '{nama}' berhasil ditambahkan.")
+        print(f"Produk kue kering '{nama}' berhasil disimpan di repo.")
 
     def tampilkan_semua(self):
         return self.daftar_kuekering
 
     def cari_kode(self, kode):
         for produk in self.daftar_kuekering:
-            if produk.kode == kode:
+            if str(produk.kode) == str(kode):
                 return produk
         return None
 
-    def cari_jenis(self, jenis):
-        hasil = []
-        for produk in self.daftar_kuekering:
-            if jenis == "butter" and isinstance(produk, ButterCookies):
-                hasil.append(produk)
-            elif jenis == "muffin" and isinstance(produk, Muffin):
-                hasil.append(produk)
-
-        if len(hasil) == 0:
-            print(f"Tidak ada produk dengan jenis '{jenis}'.")
-            return
-
-        print("\n=== Produk Jenis Kue Kering ===")
-        for i, produk in enumerate(hasil):
-            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
-
     def hapus(self, kode):
         produk = self.cari_kode(kode)
-        if produk != None:
+        if produk is not None:
             self.daftar_kuekering.remove(produk)
-            print(f"Produk '{produk.nama}' berhasil dihapus.")
-        else:
-            print(f"Produk dengan kode '{kode}' tidak ditemukan.")
 
-#Roti Manis
 class RotiManisRepository:
     def __init__(self):
-        self.daftar_rotimanis = []
+        self.daftar_rotimanis = _instance_rotimanis
 
     def tambah_produk(self, jenis, nama, kode, bahan, biaya, harga):
-        produk = PabrikRotiManis.buat_varian(jenis, nama, kode, bahan, biaya, harga)
+        produk = PabrikRotiManis.buat_varian(nama, kode, bahan, biaya, harga)
         self.daftar_rotimanis.append(produk)
-        print(f"Produk roti manis '{nama}' berhasil ditambahkan.")
+        print(f"Produk roti manis '{nama}' berhasil disimpan di repo.")
 
     def tampilkan_semua(self):
         return self.daftar_rotimanis
 
     def cari_kode(self, kode):
         for produk in self.daftar_rotimanis:
-            if produk.kode == kode:
+            if str(produk.kode) == str(kode):
                 return produk
         return None
 
-    def cari_jenis(self):
-        hasil = []
-        for produk in self.daftar_rotimanis:
-            if isinstance(produk, Rotimanis):
-                hasil.append(produk)
-
-        if len(hasil) == 0:
-            print("Tidak ada produk roti manis.")
-            return
-
-        print("\n=== Produk Jenis Roti Manis ===")
-        for i, produk in enumerate(hasil):
-            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
-
     def hapus(self, kode):
         produk = self.cari_kode(kode)
-        if produk != None:
+        if produk is not None:
             self.daftar_rotimanis.remove(produk)
-            print(f"Produk '{produk.nama}' berhasil dihapus.")
-        else:
-            print(f"Produk dengan kode '{kode}' tidak ditemukan.")
