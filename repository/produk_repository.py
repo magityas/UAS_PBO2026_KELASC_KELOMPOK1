@@ -13,18 +13,13 @@ class CroissantRepository:
         print(f"Produk croissant '{nama}' berhasil ditambahkan.")
 
     def tampilkan_semua(self):
-        if len(self.daftar_croissant) == 0:
-            print("Belum ada produk croissant.")
-            return
-        print("\n=== Daftar Croissant ===")
-        for i, produk in enumerate(self.daftar_croissant):
-            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
+        return self.daftar_croissant
 
     def cari_kode(self, kode):
         for produk in self.daftar_croissant:
             if produk.kode == kode:
                 return produk
-        return
+        return None
 
     def cari_jenis(self):
         hasil = []
@@ -59,18 +54,13 @@ class KueKeringRepository:
         print(f"Produk kue kering '{nama}' berhasil ditambahkan.")
 
     def tampilkan_semua(self):
-        if len(self.daftar_kuekering) == 0:
-            print("Belum ada produk kue kering.")
-            return
-        print("\n=== Daftar Kue Kering ===")
-        for i, produk in enumerate(self.daftar_kuekering):
-            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
+        return self.daftar_kuekering
 
     def cari_kode(self, kode):
         for produk in self.daftar_kuekering:
             if produk.kode == kode:
                 return produk
-        return
+        return None
 
     def cari_jenis(self, jenis):
         hasil = []
@@ -107,18 +97,13 @@ class RotiManisRepository:
         print(f"Produk roti manis '{nama}' berhasil ditambahkan.")
 
     def tampilkan_semua(self):
-        if len(self.daftar_rotimanis) == 0:
-            print("Belum ada produk roti manis.")
-            return
-        print("\n=== Daftar Roti Manis ===")
-        for i, produk in enumerate(self.daftar_rotimanis):
-            print(f"{i + 1}. [{produk.kode}] {produk.nama} - Harga: Rp{produk.harga}")
+        return self.daftar_rotimanis
 
     def cari_kode(self, kode):
         for produk in self.daftar_rotimanis:
             if produk.kode == kode:
                 return produk
-        return
+        return None
 
     def cari_jenis(self):
         hasil = []
