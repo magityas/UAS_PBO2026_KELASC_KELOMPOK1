@@ -1,7 +1,8 @@
 # services/produksi_services.py
 import time
 import sys
-from typing import Any, List
+from typing import Any, List, Dict
+from models.Croissant import BahanBaku
 
 class ProduksiService:
     def ketik_animasi(self, teks: str, kecepatan: float = 0.03):
@@ -15,23 +16,36 @@ class ProduksiService:
                 time.sleep(kecepatan)
         print()
 
-    def simulasikan_produksi(self, produk: Any, daftar_produk: List[Any] = None) -> None:
-        if daftar_produk:
-            print("\n=== DAFTAR PRODUK YANG TERSEDIA DI SISTEM ===")
-            for i, p in enumerate(daftar_produk):
-                print(f"{i + 1} [{p.kode}] {p.nama}")
-            print("==============================================\n")
+    def jalankan_simulasi_lengkap(self, produk: Any, data_bahan_mentah: List[Dict[str, str]]) -> None:
+        """
+        Memproses data bahan baku dari UI, memasukkannya ke objek produk,
+        dan menjalankan seluruh rangkaian animasi simulasi produksi.
+        """
+        list_bahan_baru = []
+        for bahan in data_bahan_mentah:
+            obj_bahan = BahanBaku(bahan["nama"], bahan["jumlah"])
+            list_bahan_baru.append(obj_bahan)
+
+        setattr(produk, "_ProduksiRoti__bahan", list_bahan_baru)
+
+        print("\n[INFO] Barang/Bahan Baku berhasil dimasukkan ke dalam adonan:")
+        for b in produk.bahan:
+            print(f" - {b.nama} ({b.jumlah})")
+        print()
+
+        self.ketik_animasi(f"Mempersiapkan mesin produksi untuk {produk.nama}.....")
+        self.ketik_animasi("Mencampur seluruh bahan baku ke dalam wadah adonan.....")
+        self.ketik_animasi("Memproses adonan kue sesuai resep rahasia.....")
 
         self.ketik_animasi(f"\n--- Memulai proses produksi untuk produk: {produk.kode} ---")
-        time.sleep(0.5) 
+        time.sleep(0.5)
 
         original_print = print
-
         def custom_print(*args, **kwargs):
             teks_gabung = " ".join(map(str, args))
             if "->" in teks_gabung or "===" in teks_gabung:
                 self.ketik_animasi(teks_gabung)
-                time.sleep(0.8) 
+                time.sleep(0.8) # Jeda antar tahapan proses adonan
             else:
                 original_print(*args, **kwargs)
 
@@ -43,4 +57,4 @@ class ProduksiService:
         finally:
             builtins.print = original_print
 
-        self.ketik_animasi("--- Proses produksi selesai ---")
+            self.ketik_animasi("--- Proses produksi selesai ---")
