@@ -1,9 +1,7 @@
-import time
-import sys
+# ui/bakery_ui.py
 from services.produk_services import ProdukService
 from services.profit_services import ProfitService
 from services.produksi_services import ProduksiService
-from models.Croissant import BahanBaku
 
 class BakeryUI:
     def __init__(self):
@@ -13,17 +11,6 @@ class BakeryUI:
 
     def format_rupiah(self, angka: float) -> str:
         return f"Rp {angka:,.0f}".replace(",", ".")
-
-    def ketik_animasi(self, teks: str, kecepatan: float = 0.03):
-        """Fungsi untuk memunculkan huruf satu per satu dengan efek jeda pada titik-titik"""
-        for huruf in teks:
-            sys.stdout.write(huruf)
-            sys.stdout.flush()
-            if huruf == '.':
-                time.sleep(0.3)
-            else:
-                time.sleep(kecepatan)
-        print()
 
     def tampilkan_menu(self):
         print("\n" + "=" * 30)
@@ -73,7 +60,7 @@ class BakeryUI:
             print("Pilihan kategori tidak valid.")
             return
 
-        print("\n*Catatan Kue Kering hanya menerima jenis: 'Butter Cookies' atau 'Muffin'")
+        print("\n*Catatan Kue Kering hanya menerima jenis: 'Butter Cookies' or 'Muffin'")
         jenis = input("Masukkan jenis produk: ")
         nama = input("Masukkan nama produk : ")
         kode = input("Masukkan kode produk : ")
@@ -176,27 +163,18 @@ class BakeryUI:
             print("[ERROR] Masukkan jumlah jenis berupa angka.")
             return
 
-        list_bahan_baru = []
+            data_bahan_mentah = []
         for i in range(jumlah_bahan):
             print(f"Bahan ke-{i+1}:")
             nama_bahan = input("  Nama barang/bahan baku : ")
             jumlah_input = input("  Jumlah/Takaran (misal: 500gr, 5 butir): ")
 
-            obj_bahan = BahanBaku(nama_bahan, jumlah_input)
-            list_bahan_baru.append(obj_bahan)
+            data_bahan_mentah.append({
+                "nama": nama_bahan,
+                "jumlah": jumlah_input
+            })
 
-        setattr(produk, "_ProduksiRoti__bahan", list_bahan_baru)
-
-        print("\n[INFO] Barang/Bahan Baku berhasil dimasukkan ke dalam adonan:")
-        for b in produk.bahan:
-            print(f" - {b.nama} ({b.jumlah})")
-
-        print()
-        self.ketik_animasi(f"Mempersiapkan mesin produksi untuk {produk.nama}.....")
-        self.ketik_animasi("Mencampur seluruh bahan baku ke dalam wadah adonan.....")
-        self.ketik_animasi("Memproses adonan kue sesuai resep rahasia.....")
-
-        self.produksi_service.simulasikan_produksi(produk)
+        self.produksi_service.jalankan_simulasi_lengkap(produk, data_bahan_mentah)
 
     def run(self):
         while True:
