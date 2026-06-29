@@ -11,51 +11,33 @@ class ProdukService:
         if self.cari_produk_by_kode(kode) is not None:
             print(f"Produk dengan kode {kode} sudah ada.")
             return False
-        
-        kategori = kategori.lower()
-        if kategori == "croissant":
+
+        kategori = kategori.lower().replace("_", " ")
+        if "croissant" in kategori:
             self.repo_croissant.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
-        elif kategori == "kue kering":
+        elif "kue kering" in kategori:
             self.repo_kuekering.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
-        elif kategori == "roti_manis":
+        elif "roti manis" in kategori or "roti_manis" in kategori:
             self.repo_rotimanis.tambah_produk(jenis, nama, kode, bahan, biaya, harga)
         else:
-            print("Gagal: Kategori tidak valid. Pilih 'croissant', kue_kering', atau 'roti_manis'.")
             return False
-        
         return True
-    
+
     def ambil_semua_produk(self) -> List[Any]:
         semua_produk = []
-        semua_produk.extend(self.repo_croissant.daftar_croissant)
-        semua_produk.extend(self.repo_kuekering.daftar_kuekering)
-        semua_produk.extend(self.repo_rotimanis.daftar_rotimanis)
+        semua_produk.extend(self.repo_croissant.tampilkan_semua())
+        semua_produk.extend(self.repo_kuekering.tampilkan_semua())
+        semua_produk.extend(self.repo_rotimanis.tampilkan_semua())
         return semua_produk
-    
+
     def cari_produk_by_kode(self, kode: str) -> Optional[Any]:
-        produk = self.repo_croissant.cari_kode(kode)
-        if produk: return produk
-        
-        produk = self.repo_kuekering.cari_kode(kode)
-        if produk: return produk
-        
-        produk = self.repo_rotimanis.cari_kode(kode)
-        return produk
-    
+        p = self.repo_croissant.cari_kode(kode)
+        if p: return p
+        p = self.repo_kuekering.cari_kode(kode)
+        if p: return p
+        return self.repo_rotimanis.cari_kode(kode)
+
     def hapus_produk_by_kode(self, kode: str) -> bool:
-        print ("\n==========================================")
-        print("       DAFTAR SEMUA PRODUK SAAT INI       ")
-        print("==========================================")
-        # tampilkan semua produk sebelum proses pencarian dan penghapusan
-        self.repo_croissant.tampilkan_semua()
-        self.repo_kuekering.tampilkan_semua()
-        self.repo_rotimanis.tampilkan_semua()
-        print("==========================================\n")
-
-        # minta user mengetik kode yang ingin dihapus
-        kode = input("Masukkan kode produk yang ingin dihapus: ")
-
-        #proses pencarian dan penghapusan setelah data ditampilkan
         if self.repo_croissant.cari_kode(kode) is not None:
             self.repo_croissant.hapus(kode)
             return True
@@ -65,6 +47,4 @@ class ProdukService:
         if self.repo_rotimanis.cari_kode(kode) is not None:
             self.repo_rotimanis.hapus(kode)
             return True
-        
-        print(f"Produk dengan kode {kode} tidak ditemukan di kategori manapun.")
         return False

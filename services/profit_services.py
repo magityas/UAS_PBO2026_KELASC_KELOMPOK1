@@ -1,19 +1,11 @@
 from typing import Any, Dict
-
-from .bahan_baku_services import BahanBakuService
-
+from services.bahan_baku_services import BahanBakuService
 
 class ProfitService:
     def __init__(self, bahan_baku_service: BahanBakuService = None):
         self.bahan_baku_service = bahan_baku_service or BahanBakuService()
 
-    def estimasi_profit(self, produk: Any, jumlah_pcs: int, daftar_produk: list[Any] = None) ->Dict[str, float]:
-        if daftar_produk:
-            print("\n=== DAFTAR PRODUK UNTUK ESTIMASI PROFIT ===")
-            for i, p in enumerate(daftar_produk):
-                print(f"{i + 1} [{p.kode}] {p.nama} - Harga jual: Rp{p.harga}")
-            print("==============================================\n")
-            
+    def estimasi_profit(self, produk: Any, jumlah_pcs: int, daftar_produk: list[Any] = None) -> Dict[str, float]:
         rasio = self.bahan_baku_service.hitung_rasio_produksi(produk, jumlah_pcs)
         total_biaya = produk.biaya * rasio
         total_harga_jual = produk.harga * rasio
