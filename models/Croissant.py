@@ -27,11 +27,11 @@ class Pengadonan(ProsesProduksi):
         
 class Pengembangan(ProsesProduksi):
     def jalankan(self):
-        print("-> Melakuan proses pengembangan adonan")
+        print("-> Melakukan proses pengembangan adonan")
         
 class Pemanggangan(ProsesProduksi):
     def jalankan(self):
-        print("-> Melakukan proses pemamnggangan adonan")
+        print("-> Melakukan proses pemanggangan adonan")
         
 class ProduksiRoti(ABC):
     def __init__(self, nama, kode, bahan, biaya, harga):
@@ -82,27 +82,4 @@ class Croissant(ProduksiRoti):
 class PabrikRoti:
     @staticmethod
     def buat_varian(nama, kode, bahan, biaya, harga):
-       return Croissant(nama, kode, bahan, biaya, harga)
-   
-nama = input("Masukan nama varian: ")
-kode = input("Masukan kode produk: ")
-
-jumlah_bahan = int(input("Jumlah bahan: "))
-bahan = []
-
-for i in range(jumlah_bahan):
-    print(f"\nBahan ke-{i+1}")
-    nama_bahan = input("Nama bahan: ")
-    jumlah = input("Jumlah: ")
-    bahan.append(BahanBaku(nama_bahan, jumlah))
-    
-biaya = int(input("Biaya produksi: "))
-harga = int(input("Harga jual: "))
-
-produk = PabrikRoti.buat_varian(
-    nama,
-    kode,
-    bahan,
-    biaya,
-    harga
-)
+        return Croissant(nama, kode, bahan, biaya, harga)
