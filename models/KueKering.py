@@ -73,13 +73,9 @@ class ProduksiRoti(ABC):
 
 
 class KueKering(ProduksiRoti):
-    def __init__(self, nama, kode, bahan, biaya, harga):
-        super().__init__(nama, kode, bahan, biaya, harga)
-
     @abstractmethod
     def proses_produksi(self):
         pass
-
 
 class ButterCookies(KueKering):
     def __init__(self, nama, kode, bahan, biaya, harga):
@@ -94,7 +90,6 @@ class ButterCookies(KueKering):
         print(f"\n=== Produksi {self.nama} ===")
         for p in self.proses:
             p.jalankan()
-
 
 class Muffin(KueKering):
     def __init__(self, nama, kode, bahan, biaya, harga):
@@ -112,40 +107,29 @@ class Muffin(KueKering):
             p.jalankan()
 
 
-class ButterCookiesOriginal(ButterCookies):
-    pass
-
-class ButterCookiesCoklat(ButterCookies):
-    pass
-
-class ButterCookiesKeju(ButterCookies):
-    pass
-
-
-class MuffinCoklat(Muffin):
-    pass
-
-class MuffinBlueberry(Muffin):
-    pass
-
-class MuffinKeju(Muffin):
-    pass
-
-
 class PabrikRoti:
     @staticmethod
     def buat_varian(jenis, nama, kode, bahan, biaya, harga):
-        if jenis == "cookies_original":
-            return ButterCookiesOriginal(nama, kode, bahan, biaya, harga)
-        elif jenis == "cookies_coklat":
-            return ButterCookiesCoklat(nama, kode, bahan, biaya, harga)
-        elif jenis == "cookies_keju":
-            return ButterCookiesKeju(nama, kode, bahan, biaya, harga)
-        elif jenis == "muffin_coklat":
-            return MuffinCoklat(nama, kode, bahan, biaya, harga)
-        elif jenis == "muffin_blueberry":
-            return MuffinBlueberry(nama, kode, bahan, biaya, harga)
-        elif jenis == "muffin_keju":
-            return MuffinKeju(nama, kode, bahan, biaya, harga)
+        if jenis == "Butter Cookies":
+            return ButterCookies(nama, kode, bahan, biaya, harga)
+        elif jenis == "Muffin":
+            return Muffin(nama, kode, bahan, biaya, harga)
         else:
-            raise ValueError(f"Varian '{jenis}' tidak tersedia")
+            raise ValueError(f"Jenis '{jenis}' tidak tersedia. Pilih 'Butter Cookies' atau 'Muffin'.")
+
+
+jenis = input("Masukkan jenis kue kering (Butter Cookies/Muffin): ")
+nama = input("Masukkan nama produk: ")
+kode = input("Masukkan kode produk: ")
+jumlah_bahan = int(input("Jumlah bahan: "))
+bahan = []
+
+for i in range(jumlah_bahan):
+    print(f"\nBahan ke-{i+1}")
+    nama_bahan = input("Nama bahan: ")
+    jumlah = input("Jumlah: ")
+    bahan.append(BahanBaku(nama_bahan, jumlah))
+
+biaya = int(input("Biaya produksi: "))
+harga = int(input("Harga jual: "))
+produk = PabrikRoti.buat_varian(jenis, nama, kode, bahan, biaya, harga)
