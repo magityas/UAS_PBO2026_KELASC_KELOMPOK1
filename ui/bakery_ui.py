@@ -174,7 +174,7 @@ class BakeryUI:
                     print("[ERROR] Jumlah pcs wajib diisi!")
                     continue
                 jumlah = int(jumlah_input)
-                if sneak_value := jumlah <= 0:
+                if jumlah <= 0:
                     print("[ERROR] Jumlah pcs harus lebih dari 0!")
                     continue
                 break
