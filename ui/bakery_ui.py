@@ -1,4 +1,3 @@
-# ui/bakery_ui.py
 from services.produk_services import ProdukService
 from services.profit_services import ProfitService
 from services.produksi_services import ProduksiService
@@ -49,27 +48,67 @@ class BakeryUI:
         print("2. Kue Kering")
         print("3. Roti Manis")
 
-        pilih = input("Pilih kategori produk : ")
+        while True:
+            pilih = input("Pilih kategori produk : ").strip()
+            if pilih in ["1", "2", "3"]:
+                break
+            print("[ERROR] Pilihan kategori wajib diisi dengan angka 1, 2, atau 3!")
+
         if pilih == "1":
             kategori = "croissant"
         elif pilih == "2":
             kategori = "kue kering"
         elif pilih == "3":
             kategori = "roti_manis"
-        else:
-            print("Pilihan kategori tidak valid.")
-            return
 
-        print("\n*Catatan Kue Kering hanya menerima jenis: 'Butter Cookies' or 'Muffin'")
-        jenis = input("Masukkan jenis produk: ")
-        nama = input("Masukkan nama produk : ")
-        kode = input("Masukkan kode produk : ")
-        try:
-            biaya = float(input("Masukkan biaya produksi : "))
-            harga = float(input("Masukkan harga jual : "))
-        except ValueError:
-            print("[ERROR] Input angka biaya atau harga tidak valid.")
-            return
+        if kategori == "kue kering":
+            print("\n*Catatan Kue Kering hanya menerima jenis: 'Butter Cookies' atau 'Muffin'")
+
+        while True:
+            jenis = input("Masukkan jenis produk: ").strip()
+            if jenis:
+                break
+            print("[ERROR] Jenis produk wajib diisi, tidak boleh kosong!")
+
+        while True:
+            nama = input("Masukkan nama produk : ").strip()
+            if nama:
+                break
+            print("[ERROR] Nama produk wajib diisi, tidak boleh kosong!")
+
+        while True:
+            kode = input("Masukkan kode produk : ").strip()
+            if kode:
+                break
+            print("[ERROR] Kode produk wajib diisi, tidak boleh kosong!")
+
+        while True:
+            try:
+                biaya_input = input("Masukkan biaya produksi : ").strip()
+                if not biaya_input:
+                    print("[ERROR] Biaya produksi wajib diisi!")
+                    continue
+                biaya = float(biaya_input)
+                if biaya < 0:
+                    print("[ERROR] Biaya produksi tidak boleh minus!")
+                    continue
+                break
+            except ValueError:
+                print("[ERROR] Input tidak valid. Harap masukkan angka untuk biaya produksi!")
+
+        while True:
+            try:
+                harga_input = input("Masukkan harga jual : ").strip()
+                if not harga_input:
+                    print("[ERROR] Harga jual wajib diisi!")
+                    continue
+                harga = float(harga_input)
+                if harga < 0:
+                    print("[ERROR] Harga jual tidak boleh minus!")
+                    continue
+                break
+            except ValueError:
+                print("[ERROR] Input tidak valid. Harap masukkan angka untuk harga jual!")
 
         try:
             berhasil = self.produk_service.tambah_produk(kategori, jenis, nama, kode, [], biaya, harga)
@@ -127,14 +166,20 @@ class BakeryUI:
         if not produk:
             print("Produk tidak ditemukan!")
             return
-        try:
-            jumlah = int(input("Jumlah pcs yang ingin diproduksi : "))
-            if jumlah <= 0:
-                print("Jumlah pcs harus lebih dari 0.")
-                return
-        except ValueError:
-            print("Input jumlah pcs tidak valid.")
-            return
+
+        while True:
+            try:
+                jumlah_input = input("Jumlah pcs yang ingin diproduksi : ").strip()
+                if not jumlah_input:
+                    print("[ERROR] Jumlah pcs wajib diisi!")
+                    continue
+                jumlah = int(jumlah_input)
+                if sneak_value := jumlah <= 0:
+                    print("[ERROR] Jumlah pcs harus lebih dari 0!")
+                    continue
+                break
+            except ValueError:
+                print("[ERROR] Input tidak valid. Harap masukkan angka bulat untuk jumlah pcs!")
 
         hasil = self.profit_service.estimasi_profit(produk, jumlah)
         print("\n=== Hasil Estimasi Profit ===")
@@ -157,17 +202,36 @@ class BakeryUI:
             return
 
         print(f"\n--- Input Bahan Baku untuk {produk.nama} ---")
-        try:
-            jumlah_bahan = int(input("Berapa jenis bahan baku yang ingin dimasukkan? : "))
-        except ValueError:
-            print("[ERROR] Masukkan jumlah jenis berupa angka.")
-            return
 
-            data_bahan_mentah = []
+        while True:
+            try:
+                jumlah_bahan_input = input("Berapa jenis bahan baku yang ingin dimasukkan? : ").strip()
+                if not jumlah_bahan_input:
+                    print("[ERROR] Jumlah jenis bahan baku wajib diisi!")
+                    continue
+                jumlah_bahan = int(jumlah_bahan_input)
+                if jumlah_bahan <= 0:
+                    print("[ERROR] Jumlah jenis bahan baku harus lebih dari 0!")
+                    continue
+                break
+            except ValueError:
+                print("[ERROR] Input tidak valid. Harap masukkan angka bulat untuk jumlah jenis bahan!")
+
+        data_bahan_mentah = []
         for i in range(jumlah_bahan):
             print(f"Bahan ke-{i+1}:")
-            nama_bahan = input("  Nama barang/bahan baku : ")
-            jumlah_input = input("  Jumlah/Takaran (misal: 500gr, 5 butir): ")
+
+            while True:
+                nama_bahan = input("  Nama barang/bahan baku : ").strip()
+                if nama_bahan:
+                    break
+                print("[ERROR] Nama bahan baku tidak boleh kosong!")
+
+            while True:
+                jumlah_input = input("  Jumlah/Takaran (misal: 500gr, 5 butir): ").strip()
+                if jumlah_input:
+                    break
+                print("[ERROR] Jumlah/Takaran tidak boleh kosong!")
 
             data_bahan_mentah.append({
                 "nama": nama_bahan,
