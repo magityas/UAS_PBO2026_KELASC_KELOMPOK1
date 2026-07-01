@@ -84,7 +84,7 @@ class BakeryUI:
 
         while True:
             try:
-                biaya_input = input("Masukkan biaya produksi : ").strip()
+                biaya_input = input("Masukkan biaya produksi per-loyang : ").strip()
                 if not biaya_input:
                     print("[ERROR] Biaya produksi wajib diisi!")
                     continue
@@ -98,7 +98,7 @@ class BakeryUI:
 
         while True:
             try:
-                harga_input = input("Masukkan harga jual : ").strip()
+                harga_input = input("Masukkan harga jual per-pcs : ").strip()
                 if not harga_input:
                     print("[ERROR] Harga jual wajib diisi!")
                     continue
@@ -169,7 +169,7 @@ class BakeryUI:
 
         while True:
             try:
-                jumlah_input = input("Jumlah pcs yang ingin diproduksi : ").strip()
+                jumlah_input = input("Jumlah unit (pcs) yang dipesan konsumen : ").strip()
                 if not jumlah_input:
                     print("[ERROR] Jumlah pcs wajib diisi!")
                     continue
@@ -182,13 +182,18 @@ class BakeryUI:
                 print("[ERROR] Input tidak valid. Harap masukkan angka bulat untuk jumlah pcs!")
 
         hasil = self.profit_service.estimasi_profit(produk, jumlah)
+        
         print("\n=== Hasil Estimasi Profit ===")
-        print(f"Produk              : {produk.nama}")
-        print(f"Jumlah Produksi     : {jumlah}")
-        print(f"Total Biaya Produksi: {self.format_rupiah(hasil['total_biaya'])}")
-        print(f"Total Harga Jual    : {self.format_rupiah(hasil['total_harga_jual'])}")
-        print(f"Estimasi Profit     : {self.format_rupiah(hasil['estimasi_profit'])}")
-        print(f"Margin Profit       : {hasil['margin_persen']:.2f}%")
+        print(f"Produk                  : {produk.nama}")
+        print(f"Jumlah Pesanan          : {jumlah} unit")
+        print(f"Loyang yang Dibutuhkan  : {hasil['loyang_dibutuhkan']} loyang (Total produksi: {hasil['total_unit_diproduksi']} unit)")
+        print(f"Sisa Roti (Waste)       : {hasil['sisa_roti']} unit")
+        print("-" * 45)
+        print(f"Total Biaya Produksi    : {self.format_rupiah(hasil['total_biaya'])}")
+        print(f"Total Harga Jual        : {self.format_rupiah(hasil['total_harga_jual'])}")
+        print(f"Potensi Kerugian Waste  : {self.format_rupiah(hasil['potensi_kerugian'])}")
+        print(f"Estimasi Profit Bersih  : {self.format_rupiah(hasil['estimasi_profit'])}")
+        print(f"Margin Profit           : {hasil['margin_persen']:.2f}%")
 
     def simulasi_produksi(self):
         print("\n === SIMULASI PRODUKSI ===")
